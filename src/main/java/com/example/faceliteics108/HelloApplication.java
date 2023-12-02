@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+//gay
 public class HelloApplication extends Application {
     public static UserClass[] users;
     @Override

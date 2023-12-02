@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class UserClass {
     private ArrayList<UserClass> friendsList;
     private String name;
-    private String Status;
+    private String status;
     private String image;
 
-    public UserClass(String name){
+    public UserClass(String name) {
         this.name = name;
+        this.friendsList = new ArrayList<>();
     }
 
     public String getName() {
@@ -25,7 +26,7 @@ public class UserClass {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setFriendsList(ArrayList<UserClass> friendsList) {
@@ -41,6 +42,6 @@ public class UserClass {
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 }

@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-
 import java.util.HashMap;
 
 public class HelloController  {
@@ -93,12 +92,10 @@ public class HelloController  {
             displayLabel.setText("Account found!");
         } else {
             // Update the UI to indicate that the account was not found
-            nameLabel.setText("Account: ");
-            displayLabel.setText("Account not found!");
+            nameLabel.setText(" ");
+            displayLabel.setText("A profile with the name "+ accountName+ " does not exist");
         }
     }
-
-
     @FXML
     protected void onChangeStatusClick(){
 
@@ -108,7 +105,9 @@ public class HelloController  {
 
     }
     @FXML
-    protected void onAddFriendClick(){
-
+    protected void onAddFriendClick() {
     }
+
+
+
 }

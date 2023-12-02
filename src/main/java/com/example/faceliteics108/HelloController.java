@@ -5,9 +5,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class HelloController  {
+    @FXML
+    private Label friendLabel;
     @FXML
     private Button deleteButton;
     @FXML
@@ -40,6 +45,7 @@ public class HelloController  {
     private TextField nameField;
     @FXML
     private Label welcomeText;
+
 
     private HashMap<String, UserClass> users = new HashMap<>();
 
@@ -88,7 +94,7 @@ public class HelloController  {
 
             // Update the UI with detailed information about the account
             nameLabel.setText(user.getName());
-
+            updateFriendsArea(user);
             displayLabel.setText("Account found!");
         } else {
             // Update the UI to indicate that the account was not found
@@ -106,8 +112,30 @@ public class HelloController  {
     }
     @FXML
     protected void onAddFriendClick() {
+        String accountName = nameLabel.getText();
+        UserClass user1 = users.get(accountName);
+        UserClass user2 = users.get(friendField.getText());
+
+        user1.getFriendsList().add(user2);
+        user2.getFriendsList().add(user1);
+
+        // Update the UI
+
+        updateFriendsArea(user1);
     }
 
+    private void updateFriendsArea(UserClass user) {
+        friendsArea.getChildren().clear();
 
+        if (!user.getFriendsList().isEmpty()) {
+            friendLabel.setText("Friends of " + user.getName() + ":");
 
+            for (UserClass friend : user.getFriendsList()) {
+                Label friendLabel = new Label(friend.getName());
+                friendsArea.getChildren().add(friendLabel);
+            }
+        } else {
+            displayLabel.setText(user.getName() + " has no friends.");
+        }
+    }
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.faceliteics108.HelloController">
    <children>
@@ -10,22 +11,30 @@
             <Label layoutX="122.0" layoutY="16.0" prefHeight="17.0" prefWidth="37.0" text="Name" />
             <TextField fx:id="nameField" layoutX="169.0" layoutY="12.0" prefHeight="17.0" prefWidth="126.0" />
             <Button fx:id="addButton" layoutX="316.0" layoutY="12.0" mnemonicParsing="false" onAction="#onAddClick" text="Add" />
-            <Button fx:id="deleteButton" layoutX="379.0" layoutY="12.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="lookupButton" layoutX="447.0" layoutY="11.0" mnemonicParsing="false" text="Lookup" />
+            <Button fx:id="deleteButton" layoutX="379.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDeleteClick" text="Delete" />
+            <Button fx:id="lookupButton" layoutX="447.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLookUpClick" text="Lookup" />
          </children></Pane>
       <Pane layoutY="37.0" prefHeight="364.0" prefWidth="164.0" style="-fx-background-color: #E5E5E5;">
          <children>
             <TextField fx:id="statusField" layoutX="8.0" layoutY="72.0" prefHeight="26.0" prefWidth="149.0" />
             <TextField fx:id="imageField" layoutX="8.0" layoutY="157.0" prefHeight="26.0" prefWidth="149.0" />
             <TextField fx:id="friendField" layoutX="8.0" layoutY="240.0" prefHeight="26.0" prefWidth="149.0" />
-            <Button fx:id="statusButton" layoutX="7.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Change Status" />
-            <Button fx:id="imageButton" layoutX="8.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Change Picture" />
-            <Button fx:id="friendButton" layoutX="8.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Add Friend" />
+            <Button fx:id="statusButton" layoutX="7.0" layoutY="106.0" mnemonicParsing="false" onAction="#onChangeStatusClick" prefHeight="26.0" prefWidth="149.0" text="Change Status" />
+            <Button fx:id="imageButton" layoutX="8.0" layoutY="189.0" mnemonicParsing="false" onAction="#onChangePictureClick" prefHeight="25.0" prefWidth="149.0" text="Change Picture" />
+            <Button fx:id="friendButton" layoutX="8.0" layoutY="273.0" mnemonicParsing="false" onAction="#onAddFriendClick" prefHeight="25.0" prefWidth="149.0" text="Add Friend" />
          </children></Pane>
       <Pane fx:id="imageArea" layoutX="193.0" layoutY="90.0" prefHeight="143.0" prefWidth="202.0" />
-      <Label fx:id="nameLabel" layoutX="193.0" layoutY="60.0" prefHeight="17.0" prefWidth="149.0" />
+      <Label fx:id="nameLabel" layoutX="193.0" layoutY="60.0" prefHeight="17.0" prefWidth="149.0" textFill="#1825da">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
       <Label fx:id="statusLabel" layoutX="193.0" layoutY="256.0" prefHeight="17.0" prefWidth="202.0" />
-      <Pane fx:id="friendsArea" layoutX="386.0" layoutY="52.0" prefHeight="267.0" prefWidth="202.0" />
-      <Label fx:id="displayLabel" layoutX="208.0" layoutY="361.0" prefHeight="17.0" prefWidth="335.0" />
+      <Label fx:id="displayLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="361.0" prefHeight="17.0" prefWidth="335.0" style="-fx-alignment: center;" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Pane fx:id="friendsArea" layoutX="404.0" layoutY="47.0" prefHeight="286.0" prefWidth="196.0">
+         <Label fx:id="friendLabel" layoutX="10.0" layoutY="16.0" prefHeight="259.0" prefWidth="164.0" />
+      </Pane>
    </children>
 </Pane>

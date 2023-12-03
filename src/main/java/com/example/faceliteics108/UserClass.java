@@ -1,16 +1,20 @@
 package com.example.faceliteics108;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class UserClass {
     private ArrayList<UserClass> friendsList;
     private String name;
     private String status;
-    private String image;
+    private String imageID;
 
     public UserClass(String name) {
         this.name = name;
         this.friendsList = new ArrayList<>();
+        this.imageID = "NO-IMAGE.png";
     }
 
     public String getName() {
@@ -22,7 +26,7 @@ public class UserClass {
     }
 
     public String getImage() {
-        return image;
+        return imageID;
     }
 
     public String getStatus() {
@@ -34,7 +38,7 @@ public class UserClass {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imageID = image;
     }
 
     public void setName(String name) {

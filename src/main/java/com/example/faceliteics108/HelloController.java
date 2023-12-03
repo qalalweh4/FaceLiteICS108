@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -48,7 +50,10 @@ public class HelloController  {
 
 
     private HashMap<String, UserClass> users = new HashMap<>();
+    //resource path as variable for ease of editing
+    private String resourceAddress = "file:\\C:\\Users\\OMEN\\IdeaProjects\\projects\\FaceLiteICS108\\src\\main\\resources\\";
 
+    private int imageScale = 240;
     @FXML
     protected void onAddClick() {
         String accountName = nameField.getText();
@@ -65,6 +70,7 @@ public class HelloController  {
 
             // Update the UI
             nameLabel.setText( accountName);
+            refreshImageView(newUser);
             displayLabel.setText("New Profile Created");
         }
     }
@@ -94,10 +100,12 @@ public class HelloController  {
 
             // Update the UI with detailed information about the account
             nameLabel.setText(user.getName());
+            refreshImageView(user);
             updateFriendsArea(user);
             displayLabel.setText("Account found!");
         } else {
             // Update the UI to indicate that the account was not found
+            refreshImageView();
             nameLabel.setText(" ");
             displayLabel.setText("A profile with the name "+ accountName+ " does not exist");
         }
@@ -108,6 +116,26 @@ public class HelloController  {
     }
     @FXML
     protected void onChangePictureClick(){
+        //get image name from textField
+        String imageName = imageField.getText();
+
+        //get the currently displayed user and assign its object
+        String accountName = nameLabel.getText();
+        UserClass user = users.get(accountName);
+
+        //set the image in the user's data field
+        //& create imageView for the name to display it
+        user.setImage(imageName);
+
+        ImageView imageView = new ImageView(resourceAddress + imageName);
+        imageView.setFitHeight(imageScale);
+        imageView.setFitWidth(imageScale);
+        imageArea.getChildren().add(imageView);
+
+        //output progress
+        displayLabel.setText("Picture Updated");
+
+
 
     }
     @FXML
@@ -137,5 +165,28 @@ public class HelloController  {
         } else {
             displayLabel.setText(user.getName() + " has no friends.");
         }
+    }
+
+    //imageView refresher
+    public void refreshImageView(UserClass user){
+        //clear all items from imageArea pane
+        imageArea.getChildren().clear();
+
+        //create and add new imageview with correct scalling
+        ImageView displayImageView = new ImageView(resourceAddress + user.getImage());
+        displayImageView.setFitHeight(imageScale);
+        displayImageView.setFitWidth(imageScale);
+        //display
+        imageArea.getChildren().add(displayImageView);
+
+    }
+    //override of refreshImageView with no parameter
+    public void refreshImageView(){
+        imageArea.getChildren().clear();
+        ImageView displayImageView = new ImageView(resourceAddress + "");
+        displayImageView.setFitHeight(imageScale);
+        displayImageView.setFitWidth(imageScale);
+        imageArea.getChildren().add(displayImageView);
+
     }
 }

@@ -22,6 +22,9 @@
             <Button fx:id="statusButton" layoutX="7.0" layoutY="106.0" mnemonicParsing="false" onAction="#onChangeStatusClick" prefHeight="26.0" prefWidth="149.0" text="Change Status" />
             <Button fx:id="imageButton" layoutX="8.0" layoutY="189.0" mnemonicParsing="false" onAction="#onChangePictureClick" prefHeight="25.0" prefWidth="149.0" text="Change Picture" />
             <Button fx:id="friendButton" layoutX="8.0" layoutY="273.0" mnemonicParsing="false" onAction="#onAddFriendClick" prefHeight="25.0" prefWidth="149.0" text="Add Friend" />
+            <Label layoutX="21.0" layoutY="6.0" prefHeight="20.0" prefWidth="126.0" text="Relationship Status" />
+            <RadioButton layoutX="27.0" layoutY="26.0" mnemonicParsing="false" text="Single" />
+            <RadioButton layoutX="27.0" layoutY="48.0" mnemonicParsing="false" text="Married" />
          </children></Pane>
       <Pane fx:id="imageArea" layoutX="193.0" layoutY="90.0" prefHeight="143.0" prefWidth="202.0" />
       <Label fx:id="nameLabel" layoutX="193.0" layoutY="60.0" prefHeight="17.0" prefWidth="149.0" textFill="#1825da">
@@ -33,8 +36,9 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
-      <Pane fx:id="friendsArea" layoutX="404.0" layoutY="47.0" prefHeight="286.0" prefWidth="196.0">
+      <VBox fx:id="friendsArea" layoutX="404.0" layoutY="47.0" prefHeight="286.0" prefWidth="196.0">
          <Label fx:id="friendLabel" layoutX="10.0" layoutY="16.0" prefHeight="259.0" prefWidth="164.0" />
-      </Pane>
+      </VBox>
+      <TextField layoutY="350.0" />
    </children>
 </Pane>

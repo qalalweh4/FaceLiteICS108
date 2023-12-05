@@ -38,7 +38,7 @@ public class HelloController  {
     @FXML
     private Label statusLabel;
     @FXML
-    private Pane friendsArea;
+    private VBox friendsArea;
     @FXML
     private Label displayLabel;
     @FXML
@@ -48,11 +48,12 @@ public class HelloController  {
     @FXML
     private Label welcomeText;
 
-
+    //to provide constant time complexity for methods like adding deleting and looking up for elements
+    // using arraylist here may increase the time because it will use linear search
     private HashMap<String, UserClass> users = new HashMap<>();
-    //resource path as variable for ease of editing
-    private String resourceAddress = "file:\\C:\\Users\\OMEN\\IdeaProjects\\projects\\FaceLiteICS108\\src\\main\\resources\\";
 
+    //resource path as variable for ease of editing
+    private String resourceAddress = "file:\\Users\\qalalweh\\Documents\\ICS108PROJECT\\FaceLiteICS108\\src\\main\\resources";
     private int imageScale = 240;
     @FXML
     protected void onAddClick() {
@@ -72,6 +73,7 @@ public class HelloController  {
             nameLabel.setText( accountName);
             refreshImageView(newUser);
             displayLabel.setText("New Profile Created");
+            updateFriendsArea(newUser);
         }
     }
     @FXML
@@ -134,9 +136,6 @@ public class HelloController  {
 
         //output progress
         displayLabel.setText("Picture Updated");
-
-
-
     }
     @FXML
     protected void onAddFriendClick() {
@@ -148,10 +147,10 @@ public class HelloController  {
         user2.getFriendsList().add(user1);
 
         // Update the UI
-
         updateFriendsArea(user1);
     }
 
+    //updating friends area
     private void updateFriendsArea(UserClass user) {
         friendsArea.getChildren().clear();
 
@@ -172,7 +171,7 @@ public class HelloController  {
         //clear all items from imageArea pane
         imageArea.getChildren().clear();
 
-        //create and add new imageview with correct scalling
+        //create and add new imageview with correct scaling
         ImageView displayImageView = new ImageView(resourceAddress + user.getImage());
         displayImageView.setFitHeight(imageScale);
         displayImageView.setFitWidth(imageScale);

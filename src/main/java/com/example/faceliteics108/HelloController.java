@@ -14,8 +14,6 @@ import java.util.HashMap;
 
 public class HelloController  {
     @FXML
-    private Label friendLabel;
-    @FXML
     private Button deleteButton;
     @FXML
     private Button lookupButton;
@@ -155,10 +153,9 @@ public class HelloController  {
         friendsArea.getChildren().clear();
 
         if (!user.getFriendsList().isEmpty()) {
-            friendLabel.setText("Friends of " + user.getName() + ":");
-
             for (UserClass friend : user.getFriendsList()) {
                 Label friendLabel = new Label(friend.getName());
+                friendLabel.setStyle("-fx-text-fill: #FFFFFF");
                 friendsArea.getChildren().add(friendLabel);
             }
         } else {

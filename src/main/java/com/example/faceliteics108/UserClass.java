@@ -10,10 +10,12 @@ public class UserClass {
     private String name;
     private String status;
     private String imageID;
+    private String relationshipStatus;
 
     public UserClass(String name) {
         this.name = name;
         this.friendsList = new ArrayList<>();
+        this.relationshipStatus= relationshipStatus;
         this.imageID = "NO-IMAGE.png";
     }
 
@@ -47,5 +49,12 @@ public class UserClass {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setRelationshipStatus(String relationshipStatus) {
+        this.relationshipStatus = relationshipStatus;
+    }
+    public String getRelationshipStatus(){
+        return relationshipStatus;
     }
 }

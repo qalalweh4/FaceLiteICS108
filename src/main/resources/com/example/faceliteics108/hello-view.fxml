@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- This is a comment in FXML -->
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -9,27 +11,25 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="780.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.faceliteics108.HelloController">
    <children>
-      <Pane layoutX="-7.0" layoutY="-3.0" prefHeight="48.0" prefWidth="788.0" style="-fx-background-color: #808080; -fx-text-fill: #FFFFFF">
+      <Pane fx:id="topPane" layoutX="-7.0" layoutY="-3.0" prefHeight="48.0" prefWidth="788.0" style="-fx-background-color: #363737; -fx-text-fill: #FFFFFF">
          <children>
             <Label layoutX="122.0" layoutY="16.0" prefHeight="17.0" prefWidth="37.0" style="-fx-text-fill: #FFFFFF" text="Name" />
             <TextField fx:id="nameField" layoutX="172.0" layoutY="12.0" prefHeight="17.0" prefWidth="126.0" />
-            <Button fx:id="addButton" layoutX="316.0" layoutY="12.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="26.0" prefWidth="96.0" text="Add" />
-            <Button fx:id="deleteButton" layoutX="427.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="26.0" prefWidth="96.0" text="Delete" />
-            <Button fx:id="lookupButton" layoutX="535.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLookUpClick" prefHeight="26.0" prefWidth="96.0" text="Lookup" />
+            <Button fx:id="addButton" layoutX="316.0" layoutY="12.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="26.0" prefWidth="72.0" text="Add" />
+            <Button fx:id="deleteButton" layoutX="400.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="26.0" prefWidth="72.0" text="Delete" />
+            <Button fx:id="lookupButton" layoutX="483.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLookUpClick" prefHeight="26.0" prefWidth="72.0" text="Lookup" />
             <Pane fx:id="darkmodearea" layoutX="704.0" layoutY="2.0" prefHeight="42.0" prefWidth="43.0" />
          </children></Pane>
-      <Pane layoutY="37.0" prefHeight="456.0" prefWidth="164.0" style="-fx-background-color: #808080;">
+      <Pane fx:id="leftPane" layoutY="37.0" prefHeight="456.0" prefWidth="164.0" style="-fx-background-color: #363737;">
          <children>
-            <TextField fx:id="statusField" layoutX="7.0" layoutY="99.0" prefHeight="26.0" prefWidth="149.0" />
-            <TextField fx:id="imageField" layoutX="8.0" layoutY="180.0" prefHeight="26.0" prefWidth="149.0" />
-            <TextField fx:id="friendField" layoutX="8.0" layoutY="263.0" prefHeight="26.0" prefWidth="149.0" />
-            <Button fx:id="statusButton" layoutX="7.0" layoutY="130.0" mnemonicParsing="false" onAction="#onChangeStatusClick" prefHeight="26.0" prefWidth="149.0" text="Change Status" />
-            <Button fx:id="imageButton" layoutX="8.0" layoutY="212.0" mnemonicParsing="false" onAction="#onChangePictureClick" prefHeight="25.0" prefWidth="149.0" text="Change Picture" />
-            <Button fx:id="friendButton" layoutX="8.0" layoutY="296.0" mnemonicParsing="false" onAction="#onAddFriendClick" prefHeight="25.0" prefWidth="149.0" text="Add Friend" />
+            <TextField fx:id="statusField" layoutX="7.0" layoutY="121.0" prefHeight="26.0" prefWidth="149.0" />
+            <TextField fx:id="imageField" layoutX="8.0" layoutY="203.0" prefHeight="26.0" prefWidth="149.0" />
+            <TextField fx:id="friendField" layoutX="8.0" layoutY="284.0" prefHeight="26.0" prefWidth="149.0" />
+            <Button fx:id="statusButton" layoutX="7.0" layoutY="157.0" mnemonicParsing="false" onAction="#onChangeStatusClick" prefHeight="26.0" prefWidth="149.0" text="Change Status" />
+            <Button fx:id="imageButton" layoutX="8.0" layoutY="238.0" mnemonicParsing="false" onAction="#onChangePictureClick" prefHeight="25.0" prefWidth="149.0" text="Change Picture" />
+            <Button fx:id="friendButton" layoutX="8.0" layoutY="319.0" mnemonicParsing="false" onAction="#onAddFriendClick" prefHeight="25.0" prefWidth="149.0" text="Add Friend" />
             <Label layoutX="21.0" layoutY="15.0" prefHeight="20.0" prefWidth="126.0" style="-fx-text-fill: #FFFFFF" text="Relationship Status" />
-            <RadioButton fx:id="singleButton" layoutX="27.0" layoutY="38.0" mnemonicParsing="false" onAction="#onSingleButton" style="-fx-text-fill: #FFFFFF" text="Single" />
-            <RadioButton fx:id="marriedButton" layoutX="27.0" layoutY="63.0" mnemonicParsing="false" onAction="#onMarriedButton" style="-fx-text-fill: #FFFFFF" text="Married" />
-            <Separator layoutX="3.0" layoutY="77.0" prefHeight="26.0" prefWidth="158.0" />
+            <Separator layoutX="3.0" layoutY="96.0" prefHeight="26.0" prefWidth="158.0" />
             <Separator layoutX="1.0" layoutY="-8.0" prefHeight="35.0" prefWidth="164.0" />
             <AmbientLight color="CHARTREUSE" lightOn="true" />
             <AmbientLight color="CHARTREUSE" lightOn="true" />
@@ -45,8 +45,8 @@
             <Font name="System Bold" size="16.0" />
          </font></Label>
       <VBox fx:id="friendsArea" layoutX="574.0" layoutY="76.0" prefHeight="286.0" prefWidth="196.0" />
-      <TextField fx:id="deleteFriendLabel" layoutX="8.0" layoutY="380.0" prefHeight="26.0" prefWidth="149.0" />
-      <Button fx:id="onRemoveFriend" layoutX="8.0" layoutY="411.0" mnemonicParsing="false" onAction="#onRemoveFriend" prefHeight="17.0" prefWidth="149.0" text="Remove Friend" />
+      <TextField fx:id="deleteFriendLabel" layoutX="8.0" layoutY="401.0" prefHeight="26.0" prefWidth="149.0" />
+      <Button fx:id="onRemoveFriend" layoutX="8.0" layoutY="437.0" mnemonicParsing="false" onAction="#onRemoveFriend" prefHeight="17.0" prefWidth="149.0" text="Remove Friend" />
       <Label fx:id="friendsLabel" layoutX="574.0" layoutY="48.0" prefHeight="26.0" prefWidth="124.0" text="Friends List" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
@@ -60,6 +60,17 @@
          <effect>
             <ColorAdjust brightness="-1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
          </effect></Button>
-      <Label fx:id="relationStatusArea" layoutX="193.0" layoutY="314.0" prefHeight="17.0" prefWidth="111.0" />
+      <Label fx:id="relationStatusArea" layoutX="193.0" layoutY="314.0" prefHeight="17.0" prefWidth="285.0" style="-fx-text-fill: #FFFFFF" />
+      <Button fx:id="marriedButton" layoutX="5.0" layoutY="74.0" mnemonicParsing="false" onAction="#onMarriedButton" prefHeight="17.0" prefWidth="149.0" text="Married" />
+      <Button fx:id="singleButton" layoutX="6.0" layoutY="110.0" mnemonicParsing="false" onAction="#onSingleButton" prefHeight="26.0" prefWidth="149.0" text="Single" />
+      <Label layoutX="660.0" layoutY="9.0" prefHeight="25.0" prefWidth="49.0" text="/Light" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Label fx:id="darkLabel" layoutX="621.0" layoutY="10.0" prefHeight="23.0" prefWidth="49.0" style="-fx-text-fill: #000000" text="Dark">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
+      <Separator layoutX="162.0" layoutY="45.0" orientation="VERTICAL" prefHeight="448.0" prefWidth="1.0" />
    </children>
 </Pane>

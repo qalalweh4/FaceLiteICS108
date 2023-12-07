@@ -16,9 +16,15 @@ import java.util.HashMap;
 
 public class HelloController  {
     @FXML
-    private RadioButton singleButton;
+    private Label relationStatusArea;
     @FXML
-    private RadioButton marriedButton;
+    private Pane leftPane;
+    @FXML
+    private Pane topPane;
+    @FXML
+    private Button singleButton;
+    @FXML
+    private Button marriedButton;
     @FXML
     private Button darkmodeButton;
     @FXML
@@ -67,8 +73,8 @@ public class HelloController  {
     private HashMap<String, UserClass> users = new HashMap<>();
 
     //resource path as variable for ease of editing
-    private String resourceAddress = "/Users/qalalweh/Documents/ICS108PROJECT/FaceLiteICS108/src/main/resources/pictures";
-    private int imageScale = 240;
+    private String resourceAddress = "file:src/main/resources/pictures/";
+    private final int imageScale = 180;
     @FXML
     protected void onAddClick() {
         String accountName = nameField.getText();
@@ -77,19 +83,18 @@ public class HelloController  {
         if (users.containsKey(accountName)) {
             displayLabel.setText("Account already exists!");
         } else {
+            clearStatus();
+            relationStatusArea.setText(" ");
             // Create a new UserClass instance
             UserClass newUser = new UserClass(accountName);
-
             // Add the user to the users map
             users.put(accountName, newUser);
 
             // Update the UI
             nameLabel.setText( accountName);
             refreshImageView(newUser);
-            displayLabel.setText("New Profile Created");
+            displayLabel.setText("New Profile Created!!");
             updateFriendsArea(newUser);
-
-            clearStatus();
         }
     }
     @FXML
@@ -98,13 +103,17 @@ public class HelloController  {
 
         // Check if the account exists
         if (users.containsKey(accountName)) {
-            // Remove the account from the users map
-            users.remove(accountName);
 
+            UserClass newUser = new UserClass(accountName);
             // Update the UI
+            removingRelationStatus(newUser);
+            removeImageDeleteAcc(newUser);
             nameLabel.setText("");
             displayLabel.setText("Profile of " + accountName+ " is deleted ");
             clearStatus();
+            removeImageDeleteAcc(newUser);
+            // Remove the account from the users map
+            users.remove(accountName);
 
         } else {
             displayLabel.setText("Account not found!");
@@ -116,10 +125,13 @@ public class HelloController  {
 
         // Check if the account exists
         if (users.containsKey(accountName)) {
+
             UserClass user = users.get(accountName);
+            updateRelationStatusArea(user);
 
             // Update the UI with detailed information about the account
             nameLabel.setText(user.getName());
+            statusLabel.setText("Status: " + user.getStatus()); // Set status here
             refreshImageView(user);
             updateFriendsArea(user);
             displayLabel.setText("Account found!");
@@ -127,9 +139,11 @@ public class HelloController  {
             // Update the UI to indicate that the account was not found
             refreshImageView();
             nameLabel.setText(" ");
+            statusLabel.setText(""); // Clear the statusLabel when the account is not found
             displayLabel.setText("A profile with the name "+ accountName+ " does not exist");
         }
     }
+
     @FXML
     protected void onChangeStatusClick() {
         // Get the new status from the statusField
@@ -137,14 +151,20 @@ public class HelloController  {
 
         // Get the currently displayed user and update the status
         String accountName = nameLabel.getText();
-        UserClass user = users.get(accountName);
-        user.setStatus(newStatus);
 
-        // Update the statusLabel
-        statusLabel.setText("Status: " + newStatus);
+        if (accountName.isEmpty()) {
+            // No account is displayed, show an error message
+            displayLabel.setText("You can't change status when there's no account");
+        } else {
+            UserClass user = users.get(accountName);
+            user.setStatus(newStatus);
 
-        // Output progress
-        displayLabel.setText("Status Updated");
+            // Update the statusLabel
+            statusLabel.setText("Status: " + newStatus);
+
+            // Output progress
+            displayLabel.setText("Status Updated");
+        }
     }
     // Helper method to clear the status
     private void clearStatus() {
@@ -171,6 +191,29 @@ public class HelloController  {
 
         //output progress
         displayLabel.setText("Picture Updated");
+    }public void refreshImageView(UserClass user){
+        //clear all items from imageArea pane
+        imageArea.getChildren().clear();
+
+        //create and add new imageview with correct scaling
+        ImageView displayImageView = new ImageView(resourceAddress + user.getImage());
+        displayImageView.setFitHeight(imageScale);
+        displayImageView.setFitWidth(imageScale);
+        //display
+        imageArea.getChildren().add(displayImageView);
+
+    }
+    //override of refreshImageView with no parameter
+    public void refreshImageView(){
+        imageArea.getChildren().clear();
+        ImageView displayImageView = new ImageView(resourceAddress + "");
+        displayImageView.setFitHeight(imageScale);
+        displayImageView.setFitWidth(imageScale);
+        imageArea.getChildren().add(displayImageView);
+
+    }
+    public void removeImageDeleteAcc(UserClass user){
+        imageArea.getChildren().clear();
     }
     @FXML
     protected void onAddFriendClick() {
@@ -205,10 +248,29 @@ public class HelloController  {
         // Update the UI
         updateFriendsArea(user1);
     }
-
     @FXML
-    public void onRemoveFriend(){
+    public void onRemoveFriend() {
+        String accountName = nameLabel.getText();
+        UserClass user1 = users.get(accountName);
+        String friendName = deleteFriendLabel.getText();
 
+        // Check if the friend account exists
+        UserClass user2 = users.get(friendName);
+
+        if (user2 != null) {
+            // Remove the specified friend from each other's friends list
+            user1.getFriendsList().remove(user2);
+            user2.getFriendsList().remove(user1);
+
+            // Update the UI
+            updateFriendsArea(user1);
+            updateFriendsArea(user2);
+
+            // Output progress
+            displayLabel.setText("Friend '" + friendName + "' removed successfully");
+        } else {
+            displayLabel.setText("Friend account '" + friendName + "' not found!");
+        }
     }
 
     //updating friends area
@@ -222,31 +284,8 @@ public class HelloController  {
                 friendsArea.getChildren().add(friendLabel);
             }
         } else {
-            displayLabel.setText(user.getName() + " has no friends.");
+            displayLabel.setText(user.getName() + " created a profile");
         }
-    }
-
-    //imageView refresher
-    public void refreshImageView(UserClass user){
-        //clear all items from imageArea pane
-        imageArea.getChildren().clear();
-
-        //create and add new imageview with correct scaling
-        ImageView displayImageView = new ImageView(resourceAddress + user.getImage());
-        displayImageView.setFitHeight(imageScale);
-        displayImageView.setFitWidth(imageScale);
-        //display
-        imageArea.getChildren().add(displayImageView);
-
-    }
-    //override of refreshImageView with no parameter
-    public void refreshImageView(){
-        imageArea.getChildren().clear();
-        ImageView displayImageView = new ImageView(resourceAddress + "");
-        displayImageView.setFitHeight(imageScale);
-        displayImageView.setFitWidth(imageScale);
-        imageArea.getChildren().add(displayImageView);
-
     }
     @FXML
     public void onClickDarkmodeButton() {
@@ -257,14 +296,13 @@ public class HelloController  {
         // Set dark mode styles
         String darkModeStyle = "-fx-background-color: " + darkBackground + "; -fx-text-fill: " + darkText + ";";
 
-        // Apply dark mode styles to the main pane
+        // Apply dark mode styles to the panes
         ((Pane) nameField.getScene().getRoot()).setStyle(darkModeStyle);
 
         // Apply dark mode styles to specific elements
-        // Example: nameField.setStyle(darkModeStyle);
-        // Add similar lines for other UI elements as needed
 
         // Set text color for specific labels
+        relationStatusArea.setStyle("-fx-text-fill: " + darkText + ";");
         nameLabel.setStyle("-fx-text-fill: " + darkText + ";");
         statusLabel.setStyle("-fx-text-fill: " + darkText + ";");
         displayLabel.setStyle("-fx-text-fill: " + darkText + ";");
@@ -300,6 +338,7 @@ public class HelloController  {
         // Add similar lines for other UI elements as needed
 
         // Set text color for specific labels
+        relationStatusArea.setStyle("-fx-text-fill: " + lightText + ";");
         nameLabel.setStyle("-fx-text-fill: " + lightText + ";");
         statusLabel.setStyle("-fx-text-fill: " + lightText + ";");
         displayLabel.setStyle("-fx-text-fill: " + lightText + ";");
@@ -318,11 +357,53 @@ public class HelloController  {
         displayLabel.setText("Light Mode Activated");
     }
     @FXML
-    public void onSingleButton(){
+    public void onSingleButton() {
+        String accountName = nameLabel.getText();
+        UserClass user = users.get(accountName);
 
+        // Toggle relationship status
+        if ("Single".equals(user.getRelationshipStatus())) {
+            // Reset status if it was already Single
+            user.setRelationshipStatus("");
+            displayLabel.setText("Relationship status reset");
+        } else {
+            // Update user's relationship status to Single
+            user.setRelationshipStatus("Single");
+            displayLabel.setText("Relationship status set to Single");
+        }
+
+        // Update the relationStatusArea
+        updateRelationStatusArea(user);
     }
+
     @FXML
-    public void onMarriedButton(){
+    public void onMarriedButton() {
+        String accountName = nameLabel.getText();
+        UserClass user = users.get(accountName);
 
+        // Toggle relationship status
+        if ("Married".equals(user.getRelationshipStatus())) {
+            // Reset status if it was already Married
+            user.setRelationshipStatus("");
+            displayLabel.setText("Relationship status reset");
+        } else {
+            // Update user's relationship status to Married
+            user.setRelationshipStatus("Married");
+            displayLabel.setText("Relationship status set to Married");
+        }
+
+        // Update the relationStatusArea
+        updateRelationStatusArea(user);
     }
+
+
+    // Add this method to update the relationStatusArea
+    private void updateRelationStatusArea(UserClass user) {
+        String relationshipStatus = user.getRelationshipStatus();
+        relationStatusArea.setText("Relationship Status: " + relationshipStatus);
+    }
+    private void removingRelationStatus(UserClass user){
+        relationStatusArea.setText("");
+    }
+
 }

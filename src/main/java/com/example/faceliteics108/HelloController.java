@@ -78,9 +78,10 @@ public class HelloController  {
     @FXML
     protected void onAddClick() {
         String accountName = nameField.getText();
-
+        if(accountName.isEmpty())
+            displayLabel.setText("Account cannot be without words!");
         // Check if the account already exists
-        if (users.containsKey(accountName)) {
+        else if (users.containsKey(accountName)) {
             displayLabel.setText("Account already exists!");
         } else {
             clearStatus();
@@ -100,9 +101,10 @@ public class HelloController  {
     @FXML
     protected void onDeleteClick() {
         String accountName = nameField.getText();
-
+        if(accountName.isEmpty())
+            displayLabel.setText("Account cannot be deleted without words!");
         // Check if the account exists
-        if (users.containsKey(accountName)) {
+        else if (users.containsKey(accountName)) {
 
             UserClass newUser = new UserClass(accountName);
             // Update the UI
@@ -123,8 +125,10 @@ public class HelloController  {
     protected void onLookUpClick() {
         String accountName = nameField.getText();
 
+        if(accountName.isEmpty())
+            displayLabel.setText("Account cannot be lookuped without name!");
         // Check if the account exists
-        if (users.containsKey(accountName)) {
+        else if (users.containsKey(accountName)) {
 
             UserClass user = users.get(accountName);
             updateRelationStatusArea(user);
@@ -220,9 +224,10 @@ public class HelloController  {
         String accountName = nameLabel.getText();
         UserClass user1 = users.get(accountName);
         String friendName = friendField.getText();
-
+        if(accountName.isEmpty())
+            displayLabel.setText("No account with no a real name to be added!");
         // Check if the user is trying to add themselves
-        if (accountName.equals(friendName)) {
+        else if (accountName.equals(friendName)) {
             displayLabel.setText("You can't add yourself as a friend!");
             return; // Exit the method to avoid updating the UI
         }
@@ -256,8 +261,9 @@ public class HelloController  {
 
         // Check if the friend account exists
         UserClass user2 = users.get(friendName);
-
-        if (user2 != null) {
+        if(accountName.isEmpty())
+            displayLabel.setText("Type a validated user name to remove it!");
+        else if (user2 != null) {
             // Remove the specified friend from each other's friends list
             user1.getFriendsList().remove(user2);
             user2.getFriendsList().remove(user1);
@@ -360,9 +366,10 @@ public class HelloController  {
     public void onSingleButton() {
         String accountName = nameLabel.getText();
         UserClass user = users.get(accountName);
-
+        if(accountName.isEmpty())
+            displayLabel.setText("No account is inputed to choose a relationship status");
         // Toggle relationship status
-        if ("Single".equals(user.getRelationshipStatus())) {
+        else if ("Single".equals(user.getRelationshipStatus())) {
             // Reset status if it was already Single
             user.setRelationshipStatus("");
             displayLabel.setText("Relationship status reset");
@@ -380,9 +387,10 @@ public class HelloController  {
     public void onMarriedButton() {
         String accountName = nameLabel.getText();
         UserClass user = users.get(accountName);
-
+        if(accountName.isEmpty())
+            displayLabel.setText("No account is inputed to choose a relationship status");
         // Toggle relationship status
-        if ("Married".equals(user.getRelationshipStatus())) {
+        else if ("Married".equals(user.getRelationshipStatus())) {
             // Reset status if it was already Married
             user.setRelationshipStatus("");
             displayLabel.setText("Relationship status reset");

@@ -16,6 +16,8 @@ import java.util.HashMap;
 
 public class HelloController  {
     @FXML
+    private Pane themeIcon;
+    @FXML
     private Label relationStatusArea;
     @FXML
     private Pane leftPane;
@@ -71,6 +73,8 @@ public class HelloController  {
     //to provide constant time complexity for methods like adding deleting and looking up for elements
     // using arraylist here may increase the time because it will use linear search
     private HashMap<String, UserClass> users = new HashMap<>();
+
+
 
     //resource path as variable for ease of editing
     private String resourceAddress = "file:src/main/resources/pictures/";
@@ -312,6 +316,7 @@ public class HelloController  {
     }
     @FXML
     public void onClickDarkmodeButton() {
+        //
         // Set dark mode colors
         String darkBackground = "#000000";  // Dark background color
         String darkText = "#FFFFFF";        // White text color
@@ -433,5 +438,7 @@ public class HelloController  {
     private void removingRelationStatus(){
         relationStatusArea.setText("");
     }
+
+
 
 }

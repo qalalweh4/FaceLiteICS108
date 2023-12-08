@@ -299,6 +299,7 @@ public class HelloController  {
     }
     @FXML
     public void onClickDarkmodeButton() {
+        //
         // Set dark mode colors
         String darkBackground = "#000000";  // Dark background color
         String darkText = "#FFFFFF";        // White text color

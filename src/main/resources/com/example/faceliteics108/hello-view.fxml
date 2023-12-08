@@ -7,6 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="780.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.faceliteics108.HelloController">
@@ -18,7 +19,19 @@
             <Button fx:id="addButton" layoutX="316.0" layoutY="12.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="26.0" prefWidth="72.0" text="Add" />
             <Button fx:id="deleteButton" layoutX="400.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="26.0" prefWidth="72.0" text="Delete" />
             <Button fx:id="lookupButton" layoutX="483.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLookUpClick" prefHeight="26.0" prefWidth="72.0" text="Lookup" />
-            <Pane fx:id="darkmodearea" layoutX="704.0" layoutY="2.0" prefHeight="42.0" prefWidth="43.0" />
+            <Button fx:id="darkmodeButton" graphicTextGap="0.0" layoutX="716.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickDarkmodeButton" prefHeight="30.0" prefWidth="29.0" text="⚪">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust brightness="-1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
+               </effect>
+            </Button>
+            <Label layoutX="669.0" layoutY="9.0" prefHeight="17.0" prefWidth="19.0" text="🌙" textFill="#fcf9f9">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
          </children></Pane>
       <Pane fx:id="leftPane" layoutY="37.0" prefHeight="456.0" prefWidth="164.0" style="-fx-background-color: #363737;">
          <children>
@@ -52,25 +65,30 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Button fx:id="lightmodeButton" layoutX="748.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickLightModeButton" prefHeight="26.0" prefWidth="27.0" />
-      <Button fx:id="darkmodeButton" layoutX="718.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickDarkmodeButton" prefHeight="26.0" prefWidth="27.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <ColorAdjust brightness="-1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
-         </effect></Button>
+      <Button fx:id="lightmodeButton" graphicTextGap="0.0" layoutX="744.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickLightModeButton" prefHeight="20.0" prefWidth="29.0" />
       <Label fx:id="relationStatusArea" layoutX="193.0" layoutY="314.0" prefHeight="17.0" prefWidth="285.0" style="-fx-text-fill: #FFFFFF" />
       <Button fx:id="marriedButton" layoutX="5.0" layoutY="74.0" mnemonicParsing="false" onAction="#onMarriedButton" prefHeight="17.0" prefWidth="149.0" text="Married" />
       <Button fx:id="singleButton" layoutX="6.0" layoutY="110.0" mnemonicParsing="false" onAction="#onSingleButton" prefHeight="26.0" prefWidth="149.0" text="Single" />
-      <Label layoutX="660.0" layoutY="9.0" prefHeight="25.0" prefWidth="49.0" text="/Light" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font></Label>
-      <Label fx:id="darkLabel" layoutX="621.0" layoutY="10.0" prefHeight="23.0" prefWidth="49.0" style="-fx-text-fill: #000000" text="Dark">
+      <Label fx:id="darkLabel" layoutX="684.0" layoutY="8.0" prefHeight="17.0" prefWidth="19.0" style="-fx-text-fill: #000000" text="☀">
          <font>
             <Font name="System Bold Italic" size="18.0" />
-         </font></Label>
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8815789222717285" green="0.6203703880310059" blue="0.6203703880310059" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill></Label>
       <Separator layoutX="162.0" layoutY="45.0" orientation="VERTICAL" prefHeight="448.0" prefWidth="1.0" />
    </children>
 </Pane>

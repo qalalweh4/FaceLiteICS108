@@ -19,6 +19,8 @@ public class HelloApplication extends Application {
         stage.setTitle("FaceLite");
         stage.setScene(scene);
         stage.show();
+        ImageView imageView= new ImageView("NO-IMAGE.png");
+
     }
 
     public static void main(String[] args) {

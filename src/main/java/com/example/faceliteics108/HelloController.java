@@ -142,6 +142,8 @@ public class HelloController  {
         } else {
             // Update the UI to indicate that the account was not found
             refreshImageView();
+            updateFriendsArea();
+            removingRelationStatus();
             nameLabel.setText(" ");
             statusLabel.setText(""); // Clear the statusLabel when the account is not found
             displayLabel.setText("A profile with the name "+ accountName+ " does not exist");
@@ -264,16 +266,27 @@ public class HelloController  {
         if(accountName.isEmpty())
             displayLabel.setText("Type a validated user name to remove it!");
         else if (user2 != null) {
-            // Remove the specified friend from each other's friends list
-            user1.getFriendsList().remove(user2);
-            user2.getFriendsList().remove(user1);
+            boolean found = false;
+            for (int i = 0; i < user1.getFriendsList().size(); i++) {
+                if(user1.getFriendsList().get(i).getName().contains(friendName)){
+                    found = true;
+                    break;
+                }
+            }
+            if(found) {
+                // Remove the specified friend from each other's friends list
+                user1.getFriendsList().remove(user2);
+                user2.getFriendsList().remove(user1);
 
-            // Update the UI
-            updateFriendsArea(user1);
-            updateFriendsArea(user2);
+                // Update the UI
+                updateFriendsArea(user1);
 
-            // Output progress
-            displayLabel.setText("Friend '" + friendName + "' removed successfully");
+
+                // Output progress
+                displayLabel.setText("Friend '" + friendName + "' removed successfully");
+            } else {
+                displayLabel.setText("Account '" + friendName + "' is not a friend!");
+            }
         } else {
             displayLabel.setText("Friend account '" + friendName + "' not found!");
         }
@@ -292,6 +305,10 @@ public class HelloController  {
         } else {
             displayLabel.setText(user.getName() + " created a profile");
         }
+    }
+    //update friends area override when no name is added
+    private void updateFriendsArea() {
+        friendsArea.getChildren().clear();
     }
     @FXML
     public void onClickDarkmodeButton() {
@@ -411,6 +428,9 @@ public class HelloController  {
         relationStatusArea.setText("Relationship Status: " + relationshipStatus);
     }
     private void removingRelationStatus(UserClass user){
+        relationStatusArea.setText("");
+    }
+    private void removingRelationStatus(){
         relationStatusArea.setText("");
     }
 

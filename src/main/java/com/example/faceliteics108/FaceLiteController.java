@@ -4,17 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
-public class HelloController  {
+public class FaceLiteController {
     @FXML
     private Pane themeIcon;
     @FXML
@@ -84,7 +82,7 @@ public class HelloController  {
         String accountName = nameField.getText();
         if(accountName.isEmpty())
             displayLabel.setText("Account cannot be without words!");
-        // Check if the account already exists
+            // Check if the account already exists
         else if (users.containsKey(accountName)) {
             displayLabel.setText("Account already exists!");
         } else {
@@ -100,6 +98,7 @@ public class HelloController  {
             refreshImageView(newUser);
             displayLabel.setText("New Profile Created!!");
             updateFriendsArea(newUser);
+            friendsLabel.setText("Friends: ");
         }
     }
     @FXML
@@ -107,20 +106,33 @@ public class HelloController  {
         String accountName = nameField.getText();
         if(accountName.isEmpty())
             displayLabel.setText("Account cannot be deleted without words!");
+
         // Check if the account exists
         else if (users.containsKey(accountName)) {
 
+            //update the friends list when an account is deleted
             UserClass newUser = new UserClass(accountName);
+            users.get(accountName).getFriendsList().forEach(friend -> {
+                int id = 0;
+                int count = 0;
+                for (UserClass otherFriend : friend.getFriendsList()) {
+                    if (otherFriend.getName().equals(accountName)) {
+                        id = count;
+                    }
+                    count++;
+                }
+                friend.getFriendsList().remove(id);
+            });
             // Update the UI
             removingRelationStatus(newUser);
-            removeImageDeleteAcc(newUser);
+            updateFriendsArea(newUser);
+            onRemoveFriend();
+            refreshImageView();
             nameLabel.setText("");
             displayLabel.setText("Profile of " + accountName+ " is deleted ");
             clearStatus();
-            removeImageDeleteAcc(newUser);
-            // Remove the account from the users map
             users.remove(accountName);
-
+            friendsLabel.setText(" ");
         } else {
             displayLabel.setText("Account not found!");
         }
@@ -131,7 +143,7 @@ public class HelloController  {
 
         if(accountName.isEmpty())
             displayLabel.setText("Account cannot be lookuped without name!");
-        // Check if the account exists
+            // Check if the account exists
         else if (users.containsKey(accountName)) {
 
             UserClass user = users.get(accountName);
@@ -142,12 +154,11 @@ public class HelloController  {
             statusLabel.setText("Status: " + user.getStatus()); // Set status here
             refreshImageView(user);
             updateFriendsArea(user);
+            friendsLabel.setText("Friend: ");
             displayLabel.setText("Account found!");
         } else {
             // Update the UI to indicate that the account was not found
             refreshImageView();
-            updateFriendsArea();
-            removingRelationStatus();
             nameLabel.setText(" ");
             statusLabel.setText(""); // Clear the statusLabel when the account is not found
             displayLabel.setText("A profile with the name "+ accountName+ " does not exist");
@@ -213,6 +224,7 @@ public class HelloController  {
         imageArea.getChildren().add(displayImageView);
 
     }
+
     //override of refreshImageView with no parameter
     public void refreshImageView(){
         imageArea.getChildren().clear();
@@ -222,17 +234,17 @@ public class HelloController  {
         imageArea.getChildren().add(displayImageView);
 
     }
-    public void removeImageDeleteAcc(UserClass user){
-        imageArea.getChildren().clear();
-    }
     @FXML
     protected void onAddFriendClick() {
+
         String accountName = nameLabel.getText();
         UserClass user1 = users.get(accountName);
         String friendName = friendField.getText();
+
+        //check if the label is empty or not
         if(accountName.isEmpty())
             displayLabel.setText("No account with no a real name to be added!");
-        // Check if the user is trying to add themselves
+            // Check if the user is trying to add themselves
         else if (accountName.equals(friendName)) {
             displayLabel.setText("You can't add yourself as a friend!");
             return; // Exit the method to avoid updating the UI
@@ -253,11 +265,13 @@ public class HelloController  {
         }
 
         // Add friends
-        user1.getFriendsList().add(user2);
-        user2.getFriendsList().add(user1);
+        if(!user1.getFriendsList().contains(user2) && !accountName.equals(friendName) && !accountName.isEmpty()) {
+            user1.getFriendsList().add(user2);
+            user2.getFriendsList().add(user1);
+            updateFriendsArea(user1);
+            displayLabel.setText("You added "+user2.getName()+" successfully!!");
+        }
 
-        // Update the UI
-        updateFriendsArea(user1);
     }
     @FXML
     public void onRemoveFriend() {
@@ -269,32 +283,25 @@ public class HelloController  {
         UserClass user2 = users.get(friendName);
         if(accountName.isEmpty())
             displayLabel.setText("Type a validated user name to remove it!");
-        else if (user2 != null) {
-            boolean found = false;
-            for (int i = 0; i < user1.getFriendsList().size(); i++) {
-                if(user1.getFriendsList().get(i).getName().contains(friendName)){
-                    found = true;
-                    break;
-                }
-            }
-            if(found) {
-                // Remove the specified friend from each other's friends list
-                user1.getFriendsList().remove(user2);
-                user2.getFriendsList().remove(user1);
+        else if ((user2 != null) && !friendName.equals(accountName)) {
+            // Remove the specified friend from each other's friends list
+            user1.getFriendsList().remove(user2);
+            user2.getFriendsList().remove(user1);
 
-                // Update the UI
-                updateFriendsArea(user1);
+            // Update the UI
+            updateFriendsArea(user1);
 
+            // Output progress
+            displayLabel.setText("Friend '" + friendName + "' removed successfully");
+        }else if (Objects.equals(friendName, accountName)){
+            displayLabel.setText("You are not allowed to remove yourself becuase you are not friend!!");
 
-                // Output progress
-                displayLabel.setText("Friend '" + friendName + "' removed successfully");
-            } else {
-                displayLabel.setText("Account '" + friendName + "' is not a friend!");
-            }
-        } else {
+        }
+        else {
             displayLabel.setText("Friend account '" + friendName + "' not found!");
         }
     }
+
 
     //updating friends area
     private void updateFriendsArea(UserClass user) {
@@ -303,20 +310,17 @@ public class HelloController  {
         if (!user.getFriendsList().isEmpty()) {
             for (UserClass friend : user.getFriendsList()) {
                 Label friendLabel = new Label(friend.getName());
-                friendLabel.setStyle("-fx-text-fill: #FFFFFF");
+                friendLabel.setStyle("-fx-text-fill: #FFFFFF;"+"-fx-font-weight: bold;");
+                friendLabel.setFont(Font.font(17));
                 friendsArea.getChildren().add(friendLabel);
             }
         } else {
             displayLabel.setText(user.getName() + " created a profile");
         }
     }
-    //update friends area override when no name is added
-    private void updateFriendsArea() {
-        friendsArea.getChildren().clear();
-    }
     @FXML
     public void onClickDarkmodeButton() {
-        //
+
         // Set dark mode colors
         String darkBackground = "#000000";  // Dark background color
         String darkText = "#FFFFFF";        // White text color
@@ -361,9 +365,6 @@ public class HelloController  {
         // Apply light mode styles to the main pane
         ((Pane) nameField.getScene().getRoot()).setStyle(lightModeStyle);
 
-        // Apply light mode styles to specific elements
-        // Example: nameField.setStyle(lightModeStyle);
-        // Add similar lines for other UI elements as needed
 
         // Set text color for specific labels
         relationStatusArea.setStyle("-fx-text-fill: " + lightText + ";");
@@ -390,7 +391,7 @@ public class HelloController  {
         UserClass user = users.get(accountName);
         if(accountName.isEmpty())
             displayLabel.setText("No account is inputed to choose a relationship status");
-        // Toggle relationship status
+            // Toggle relationship status
         else if ("Single".equals(user.getRelationshipStatus())) {
             // Reset status if it was already Single
             user.setRelationshipStatus("");
@@ -400,7 +401,6 @@ public class HelloController  {
             user.setRelationshipStatus("Single");
             displayLabel.setText("Relationship status set to Single");
         }
-
         // Update the relationStatusArea
         updateRelationStatusArea(user);
     }
@@ -411,7 +411,7 @@ public class HelloController  {
         UserClass user = users.get(accountName);
         if(accountName.isEmpty())
             displayLabel.setText("No account is inputed to choose a relationship status");
-        // Toggle relationship status
+            // Toggle relationship status
         else if ("Married".equals(user.getRelationshipStatus())) {
             // Reset status if it was already Married
             user.setRelationshipStatus("");
@@ -426,7 +426,6 @@ public class HelloController  {
         updateRelationStatusArea(user);
     }
 
-
     // Add this method to update the relationStatusArea
     private void updateRelationStatusArea(UserClass user) {
         String relationshipStatus = user.getRelationshipStatus();
@@ -435,10 +434,5 @@ public class HelloController  {
     private void removingRelationStatus(UserClass user){
         relationStatusArea.setText("");
     }
-    private void removingRelationStatus(){
-        relationStatusArea.setText("");
-    }
-
-
 
 }

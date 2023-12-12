@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.faceliteics108/com.example.faceliteics108.HelloApplication
+                            <mainClass>com.example.faceliteics108/com.example.faceliteics108.FaceLiteApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -3,7 +3,6 @@
 <!-- This is a comment in FXML -->
 <!-- This is a comment in FXML -->
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="780.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.faceliteics108.HelloController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="780.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.faceliteics108.FaceLiteController">
    <children>
       <Pane fx:id="topPane" layoutX="-7.0" layoutY="-3.0" prefHeight="48.0" prefWidth="788.0" style="-fx-background-color: #363737; -fx-text-fill: #FFFFFF">
          <children>
@@ -21,6 +20,14 @@
             <Button fx:id="addButton" layoutX="316.0" layoutY="12.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="26.0" prefWidth="72.0" text="Add" />
             <Button fx:id="deleteButton" layoutX="400.0" layoutY="12.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="26.0" prefWidth="72.0" text="Delete" />
             <Button fx:id="lookupButton" layoutX="483.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLookUpClick" prefHeight="26.0" prefWidth="72.0" text="Lookup" />
+            <Button fx:id="darkmodeButton" graphicTextGap="0.0" layoutX="716.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickDarkmodeButton" prefHeight="30.0" prefWidth="29.0" text="⚪">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust brightness="-1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
+               </effect>
+            </Button>
          </children></Pane>
       <Pane fx:id="leftPane" layoutY="37.0" prefHeight="456.0" prefWidth="164.0" style="-fx-background-color: #363737;">
          <children>
@@ -41,24 +48,25 @@
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="statusLabel" layoutX="193.0" layoutY="276.0" prefHeight="17.0" prefWidth="372.0" style="-fx-text-fill: #FFFFFF" />
+      <Label fx:id="statusLabel" layoutX="193.0" layoutY="276.0" prefHeight="17.0" prefWidth="372.0" style="-fx-text-fill: #FFFFFF">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
       <Label fx:id="displayLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="164.0" layoutY="361.0" prefHeight="25.0" prefWidth="613.0" style="-fx-alignment: center; -fx-text-fill: #DADBDD" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
-      <VBox fx:id="friendsArea" layoutX="574.0" layoutY="76.0" prefHeight="286.0" prefWidth="196.0" />
+      <VBox fx:id="friendsArea" layoutX="574.0" layoutY="97.0" prefHeight="265.0" prefWidth="196.0" />
       <TextField fx:id="deleteFriendLabel" layoutX="8.0" layoutY="401.0" prefHeight="26.0" prefWidth="149.0" />
-      <Button fx:id="RemoveFriend" layoutX="8.0" layoutY="437.0" mnemonicParsing="false" onAction="#onRemoveFriend" prefHeight="17.0" prefWidth="149.0" text="Remove Friend" />
-      <Label fx:id="friendsLabel" layoutX="574.0" layoutY="48.0" prefHeight="26.0" prefWidth="124.0" text="Friends List" textFill="WHITE">
+      <Button fx:id="onRemoveFriend" layoutX="8.0" layoutY="437.0" mnemonicParsing="false" onAction="#onRemoveFriend" prefHeight="17.0" prefWidth="149.0" text="Remove Friend" />
+      <Button fx:id="lightmodeButton" graphicTextGap="0.0" layoutX="744.0" layoutY="6.0" mnemonicParsing="false" onAction="#onClickLightModeButton" prefHeight="26.0" prefWidth="29.0" />
+      <Label fx:id="relationStatusArea" layoutX="193.0" layoutY="298.0" prefHeight="17.0" prefWidth="354.0" style="-fx-text-fill: #FFFFFF">
          <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Button fx:id="lightmodeButton" graphicTextGap="0.0" layoutX="744.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickLightModeButton" prefHeight="20.0" prefWidth="29.0" />
-      <Label fx:id="relationStatusArea" layoutX="193.0" layoutY="314.0" prefHeight="17.0" prefWidth="285.0" style="-fx-text-fill: #FFFFFF" />
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
       <Button fx:id="marriedButton" layoutX="5.0" layoutY="74.0" mnemonicParsing="false" onAction="#onMarriedButton" prefHeight="17.0" prefWidth="149.0" text="Married" />
       <Button fx:id="singleButton" layoutX="6.0" layoutY="110.0" mnemonicParsing="false" onAction="#onSingleButton" prefHeight="26.0" prefWidth="149.0" text="Single" />
-      <Label fx:id="darkLabel" layoutX="684.0" layoutY="8.0" prefHeight="17.0" prefWidth="19.0" style="-fx-text-fill: #000000" text="☀">
+      <Label fx:id="darkLabel" layoutX="590.0" layoutY="8.0" prefHeight="30.0" prefWidth="113.0" style="-fx-text-fill: #000000" text="Light / Dark">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -72,12 +80,17 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.8815789222717285" green="0.6203703880310059" blue="0.6203703880310059" />
+                        <Color red="0.7894737124443054" green="0.18274854123592377" blue="0.18274854123592377" />
                      </color>
                   </Stop>
                </stops>
             </LinearGradient>
          </textFill></Label>
       <Separator layoutX="162.0" layoutY="45.0" orientation="VERTICAL" prefHeight="448.0" prefWidth="1.0" />
+      <Label fx:id="friendsLabel" layoutX="575.0" layoutY="50.0" prefHeight="26.0" prefWidth="89.0" textFill="#fcf9f9">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
